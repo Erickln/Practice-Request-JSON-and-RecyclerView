@@ -43,7 +43,7 @@ public class AmigosAdapter extends RecyclerView.Adapter<AmigosAdapter.AmigosView
     public AmigosViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         // crear view específica de renglón
-        View v = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.row, parent, false);
+        View v = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.fila, parent, false);
         Button b = v.findViewById(R.id.imageView2);
 
         b.setOnClickListener(new View.OnClickListener() {
