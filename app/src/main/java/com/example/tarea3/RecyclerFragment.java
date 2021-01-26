@@ -21,14 +21,32 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 //necesitamos que aqui los datos, guardarlos en arrylist y enviarlos al adapter
-public class RecyclerFragment extends Fragment implements View.OnClickListener {
+public class  RecyclerFragment extends Fragment implements View.OnClickListener {
     private RecyclerView recyclerView;
     private ArrayList<String> datos;
+    private static final String ARG_PARAM1 = "nombre";
+    private static final String ARG_PARAM2 = "hobby";
+    private static final String ARG_PARAM3 = "edad";
+    private static final String ARG_PARAM4 = "telefono";
+    private static final String ARG_PARAM5 = "direccion";
 
+
+    private String  nombre;
+    private String  hobby;
+    private int     edad;
+    private int     telefono;
+    private String  direccion;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            nombre      = getArguments().getString(ARG_PARAM1);
+            hobby       = getArguments().getString(ARG_PARAM2);
+            edad        = Integer.parseInt(getArguments().getString(ARG_PARAM2));
+            telefono    = Integer.parseInt(getArguments().getString(ARG_PARAM2));
+            direccion   = getArguments().getString(ARG_PARAM2);
+        }
     }
 
     @Override
@@ -43,6 +61,20 @@ public class RecyclerFragment extends Fragment implements View.OnClickListener {
         recyclerView.setLayoutManager(llm);
         return v;
     }
+
+    public static RecyclerFragment newInstance(ArrayList<String> datos) { //ArrayList<Amigo>
+
+        RecyclerFragment fragment = new RecyclerFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, datos.get(0));
+        args.putString(ARG_PARAM2, datos.get(1));
+        args.putString(ARG_PARAM3, datos.get(2));
+        args.putString(ARG_PARAM4, datos.get(3));
+        args.putString(ARG_PARAM5, datos.get(4));
+        fragment.setArguments(args);
+        return fragment;
+    }
+
 
     @Override
     public void onClick(View v) {
