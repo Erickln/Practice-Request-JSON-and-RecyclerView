@@ -1,76 +1,70 @@
 package com.example.tarea3;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class AmigosAdapter extends RecyclerView.Adapter<AmigosAdapter.AmigosViewHolder> {
+public class AmigosAdapter extends RecyclerView.Adapter<AmigosAdapter.AmigoViewHolder> {
 
-    // definir un view holder
-    // - un objeto que se encarga de administrar una vista de renglón
-    public class AmigosViewHolder extends RecyclerView.ViewHolder {
+    public class AmigoViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView texto1, texto2;
+        public TextView nombre, hobby;
 
-        public AmigosViewHolder(@NonNull View itemView) {
+        public AmigoViewHolder(@NonNull View itemView) {
             super(itemView);
-            texto1 = itemView.findViewById(R.id.nameText);
-            texto2 = itemView.findViewById(R.id.hobbyText);
 
+            nombre = itemView.findViewById(R.id.nameText);
+            hobby = itemView.findViewById(R.id.hobyText);
         }
     }
 
-    // extremadamente común, casi regla
-    // referencia a fuente de datos
-    private ArrayList<Amigo> Amigos;
+    private ArrayList<Amigo> amigos;
     private View.OnClickListener listener;
 
-    public AmigosAdapter(ArrayList<Amigo> Amigos, View.OnClickListener listener){
-        this.Amigos = Amigos;
-        this.listener = listener;
+    public AmigosAdapter(ArrayList<Amigo> amigos){
+        this.amigos = amigos;
     }
 
     @NonNull
     @Override
-    public AmigosViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AmigoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        // crear view específica de renglón
         View v = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.fila, parent, false);
-        Button b = v.findViewById(R.id.imageView2);
 
-        b.setOnClickListener(new View.OnClickListener() {
+        v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.wtf("BOTONAZO", "BOTON PRESIONADO");
+                //cambia al fragmento de info
             }
         });
 
         v.setOnClickListener(listener);
 
-        AmigosViewHolder pvh = new AmigosViewHolder(v);
+        AmigoViewHolder pvh = new AmigoViewHolder(v);
         return pvh;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AmigosViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AmigoViewHolder holder, int position) {
 
-        // asocia un viewholder con datos en particular
-        holder.texto1.setText(Amigos.get(position).nombre);
-        holder.texto2.setText(Amigos.get(position).hobby);
+        //asociar con datos de amigos recibidos del RecyclerFragment
+        holder.nombre.setText(amigos.get(position).nombre);
+        holder.hobby.setText(amigos.get(position).hobby);
     }
 
     @Override
     public int getItemCount() {
-        return Amigos.size();
+        return amigos.size();
     }
 
 
 }
+

@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements  Handler.Callback
     public void cargar(View v){
         Request request = new Request("https://raw.githubusercontent.com/AbigailGV/Pruebas/main/amigos.json", handler);
         request.start();
-        recyclerFragment = RecyclerFragment.newInstance(array);
+
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.add(R.id.contenedor,recyclerFragment,"recyclerFragmento");
@@ -62,20 +62,11 @@ public class MainActivity extends AppCompatActivity implements  Handler.Callback
 
     @Override
     public boolean handleMessage(@NonNull Message msg) {
+        JSONArray data = (JSONArray) msg.obj;
+        //convertir
+        //recyclerFragment = RecyclerFragment.newInstance(data);
 
-        try {
-            JSONArray data = (JSONArray) msg.obj;
 
-            for (int i = 0; i < data.length(); i++) {
-                JSONObject temp = data.getJSONObject(i);
-
-                Log.wtf("JSON", "--------------------------------------");
-                Log.wtf("JSON", temp.getString("nombre"));
-                Log.wtf("JSON", temp.getString("hobby"));
-            }
-        }catch (JSONException e) {
-            e.printStackTrace();
-        }
         return true;
     }
 }

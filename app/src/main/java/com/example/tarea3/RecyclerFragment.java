@@ -21,7 +21,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 //necesitamos que aqui los datos, guardarlos en arrylist y enviarlos al adapter
-public class  RecyclerFragment extends Fragment implements View.OnClickListener {
+public class  RecyclerFragment extends Fragment  {
     private RecyclerView recyclerView;
     private ArrayList<Amigo> amigos;
     private static final String ARG_PARAM1 = "array";
@@ -41,12 +41,11 @@ public class  RecyclerFragment extends Fragment implements View.OnClickListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_recycler, container, false);
-        recyclerView = v.findViewById(R.id.recyclerView);
-
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(llm);
+        View v= inflater.inflate(R.layout.fragment_recycler, container, false);
+        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        AmigosAdapter adapter = new AmigosAdapter(amigos);
+        recyclerView.setAdapter(adapter);
         return v;
     }
 
@@ -57,13 +56,6 @@ public class  RecyclerFragment extends Fragment implements View.OnClickListener 
         args.putSerializable(ARG_PARAM1,datos);
         fragment.setArguments(args);
         return fragment;
-    }
-
-
-    @Override
-    public void onClick(View v) {
-    //podriamos hacer que este metodo cambie al fragmento de informacion y que envie la informacion
-    //que necesitamos desplegar (investigar si el adapter lo hace o este método)
     }
 
 }
