@@ -10,11 +10,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class AmigosAdapter extends RecyclerView.Adapter<AmigosAdapter.AmigoViewHolder> {
+public class AmigosAdapter extends RecyclerView.Adapter<AmigosAdapter.AmigoViewHolder> implements Serializable {
 
-    public class AmigoViewHolder extends RecyclerView.ViewHolder {
+    public class AmigoViewHolder extends RecyclerView.ViewHolder implements Serializable {
 
         public TextView nombre, hobby;
 
@@ -29,8 +30,9 @@ public class AmigosAdapter extends RecyclerView.Adapter<AmigosAdapter.AmigoViewH
     private ArrayList<Amigo> amigos;
     private View.OnClickListener listener;
 
-    public AmigosAdapter(ArrayList<Amigo> amigos){
-        this.amigos = amigos;
+    public AmigosAdapter(ArrayList<Amigo> amigos, View.OnClickListener listener){
+        this.amigos     = amigos;
+        this.listener   = listener;
     }
 
     @NonNull

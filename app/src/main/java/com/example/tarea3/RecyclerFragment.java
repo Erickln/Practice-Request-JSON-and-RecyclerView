@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,12 +26,15 @@ public class  RecyclerFragment extends Fragment  {
     private RecyclerView recyclerView;
     private ArrayList<Amigo> amigos;
     private static final String ARG_PARAM1 = "array";
+    private static final String ARG_PARAM2 = "adapter";
+    private AmigosAdapter amigosAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             amigos = (ArrayList<Amigo>) getArguments().getSerializable(ARG_PARAM1);
+            amigosAdapter = (AmigosAdapter) getArguments().getSerializable(ARG_PARAM2);
         }
         for (int i = 0; i < amigos.size(); i++) {
             Log.wtf("Amigo",amigos.get(i).toString());
@@ -42,18 +46,23 @@ public class  RecyclerFragment extends Fragment  {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v= inflater.inflate(R.layout.fragment_recycler, container, false);
-        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
+        recyclerView = v.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        AmigosAdapter adapter = new AmigosAdapter(amigos);
-        recyclerView.setAdapter(adapter);
+
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+
+        recyclerView.setLayoutManager(llm);
+        recyclerView.setAdapter(amigosAdapter);
         return v;
     }
 
-    public static RecyclerFragment newInstance(ArrayList<Amigo> datos) { //ArrayList<Amigo>
+    public static RecyclerFragment newInstance(ArrayList<Amigo> datos,AmigosAdapter amigosAdapter) { //ArrayList<Amigo>
 
         RecyclerFragment fragment = new RecyclerFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_PARAM1,datos);
+        args.putSerializable(ARG_PARAM2,amigosAdapter);
         fragment.setArguments(args);
         return fragment;
     }
