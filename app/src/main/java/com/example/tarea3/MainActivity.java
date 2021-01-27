@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements  Handler.Callback
     private int telefono;
     private String direccion;
 
+    ArrayList<Amigo> array;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,13 +59,6 @@ public class MainActivity extends AppCompatActivity implements  Handler.Callback
     public void cargar(View v){
         Request request = new Request("https://raw.githubusercontent.com/AbigailGV/Pruebas/main/amigos.json", handler);
         request.start();
-        ArrayList<String> array = new ArrayList<>();
-        array.add(nombre);
-        array.add(hobby);
-        array.add(edad+"");
-        array.add(telefono+"");
-        array.add(direccion);
-
         recyclerFragment = RecyclerFragment.newInstance(array);
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();

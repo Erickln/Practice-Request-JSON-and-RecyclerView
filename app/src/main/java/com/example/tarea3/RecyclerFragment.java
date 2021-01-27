@@ -62,7 +62,7 @@ public class  RecyclerFragment extends Fragment implements View.OnClickListener 
         return v;
     }
 
-    public static RecyclerFragment newInstance(ArrayList<String> datos) { //ArrayList<Amigo>
+    public static RecyclerFragment newInstance(ArrayList<Amigo> datos) { //ArrayList<Amigo>
 
         RecyclerFragment fragment = new RecyclerFragment();
         Bundle args = new Bundle();
