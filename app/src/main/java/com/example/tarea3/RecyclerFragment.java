@@ -23,29 +23,17 @@ import java.util.ArrayList;
 //necesitamos que aqui los datos, guardarlos en arrylist y enviarlos al adapter
 public class  RecyclerFragment extends Fragment implements View.OnClickListener {
     private RecyclerView recyclerView;
-    private ArrayList<String> datos;
-    private static final String ARG_PARAM1 = "nombre";
-    private static final String ARG_PARAM2 = "hobby";
-    private static final String ARG_PARAM3 = "edad";
-    private static final String ARG_PARAM4 = "telefono";
-    private static final String ARG_PARAM5 = "direccion";
-
-
-    private String  nombre;
-    private String  hobby;
-    private int     edad;
-    private int     telefono;
-    private String  direccion;
+    private ArrayList<Amigo> amigos;
+    private static final String ARG_PARAM1 = "array";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            nombre      = getArguments().getString(ARG_PARAM1);
-            hobby       = getArguments().getString(ARG_PARAM2);
-            edad        = Integer.parseInt(getArguments().getString(ARG_PARAM2));
-            telefono    = Integer.parseInt(getArguments().getString(ARG_PARAM2));
-            direccion   = getArguments().getString(ARG_PARAM2);
+            amigos = (ArrayList<Amigo>) getArguments().getSerializable(ARG_PARAM1);
+        }
+        for (int i = 0; i < amigos.size(); i++) {
+            Log.wtf("Amigo",amigos.get(i).toString());
         }
     }
 
@@ -66,11 +54,7 @@ public class  RecyclerFragment extends Fragment implements View.OnClickListener 
 
         RecyclerFragment fragment = new RecyclerFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, datos.get(0));
-        args.putString(ARG_PARAM2, datos.get(1));
-        args.putString(ARG_PARAM3, datos.get(2));
-        args.putString(ARG_PARAM4, datos.get(3));
-        args.putString(ARG_PARAM5, datos.get(4));
+        args.putSerializable(ARG_PARAM1,datos);
         fragment.setArguments(args);
         return fragment;
     }

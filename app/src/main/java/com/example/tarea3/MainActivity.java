@@ -27,12 +27,6 @@ public class MainActivity extends AppCompatActivity implements  Handler.Callback
     private RecyclerView recyclerView;
     private RecyclerFragment recyclerFragment;
 
-    private String nombre;
-    private String hobby;
-    private int edad;
-    private int telefono;
-    private String direccion;
-
     ArrayList<Amigo> array;
 
     @Override
