@@ -23,7 +23,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements  Handler.Callback,View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements  Handler.Callback{
 
     private static final String TAG_FRAGMENTO = "fragmento";
     private Handler handler;
@@ -38,12 +38,8 @@ public class MainActivity extends AppCompatActivity implements  Handler.Callback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         handler = new Handler(Looper.getMainLooper(), this);
-        adapter = new AmigosAdapter(Amigos, this);
 
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-
-        GridLayoutManager glm = new GridLayoutManager(this, 2);
+//        GridLayoutManager glm = new GridLayoutManager(this, 2);
 
        // recyclerView.setAdapter(adapter);
         /*recyclerView = findViewById(R.id.recyclerView);
@@ -62,9 +58,14 @@ public class MainActivity extends AppCompatActivity implements  Handler.Callback
 
     public void cargar(View v){
         Request request = new Request("https://raw.githubusercontent.com/AbigailGV/Pruebas/main/amigos.json", handler);
-        request.start();
         recyclerFragment = RecyclerFragment.newInstance(Amigos,adapter);
-        cambiarFragmento(recyclerFragment);
+   //     cambiarFragmento(recyclerFragment);
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.add(R.id.contenedor, recyclerFragment, TAG_FRAGMENTO);
+        transaction.commit();
+
+        request.start();
     }
 
     public void cambiarFragmento(Fragment nuevo){
@@ -113,11 +114,5 @@ public class MainActivity extends AppCompatActivity implements  Handler.Callback
         return true;
     }
 
-    @Override
-    public void onClick(View v) {
-        int pos = recyclerView.getChildLayoutPosition(v);
-        Toast.makeText(this, Amigos.get(pos).toString(), Toast.LENGTH_SHORT).show();
-        InformacionFragment informacionFragment = InformacionFragment.newInstance(Amigos.get(pos));
-        cambiarFragmento(informacionFragment);
-    }
+
 }

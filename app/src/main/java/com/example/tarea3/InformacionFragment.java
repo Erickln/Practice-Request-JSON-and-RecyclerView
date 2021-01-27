@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,12 +24,9 @@ public class InformacionFragment extends Fragment {
     private static final String ARG_PARAM1 = "amigo";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private Amigo amigo;
 
     public InformacionFragment() {
-        // Required empty public constructor
     }
 
     /**
@@ -57,6 +57,18 @@ public class InformacionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_informacion, container, false);
+        View v = inflater.inflate(R.layout.fragment_informacion, container, false);
+        TextView nombre     = v.findViewById(R.id.nombreText);
+        TextView hobby      = v.findViewById(R.id.hobbyText);
+        TextView edad       = v.findViewById(R.id.edadText);
+        TextView telefono   = v.findViewById(R.id.telefonoText);
+        TextView direccion  = v.findViewById(R.id.direccionText);
+        nombre.setText(amigo.nombre);
+        hobby.setText(amigo.hobby);
+        edad.setText(amigo.edad+"");
+        telefono.setText(amigo.telefono+"");
+        direccion.setText(amigo.direccion);
+
+        return v;
     }
 }

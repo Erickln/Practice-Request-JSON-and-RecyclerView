@@ -45,6 +45,7 @@ public class AmigosAdapter extends RecyclerView.Adapter<AmigosAdapter.AmigoViewH
             @Override
             public void onClick(View v) {
                 //cambia al fragmento de info
+                InformacionFragment informacionFragment = InformacionFragment.newInstance(new Amigo("Abi","Cantar",21,14176560,"Wañaña"));
             }
         });
 

@@ -2,29 +2,22 @@ package com.example.tarea3;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 //necesitamos que aqui los datos, guardarlos en arrylist y enviarlos al adapter
-public class  RecyclerFragment extends Fragment  {
+public class  RecyclerFragment extends Fragment implements View.OnClickListener  {
     private RecyclerView recyclerView;
-    private ArrayList<Amigo> amigos;
+    private ArrayList<Amigo> Amigos;
     private static final String ARG_PARAM1 = "array";
     private static final String ARG_PARAM2 = "adapter";
     private AmigosAdapter amigosAdapter;
@@ -33,12 +26,13 @@ public class  RecyclerFragment extends Fragment  {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            amigos = (ArrayList<Amigo>) getArguments().getSerializable(ARG_PARAM1);
+            Amigos = (ArrayList<Amigo>) getArguments().getSerializable(ARG_PARAM1);
             amigosAdapter = (AmigosAdapter) getArguments().getSerializable(ARG_PARAM2);
         }
-        for (int i = 0; i < amigos.size(); i++) {
-            Log.wtf("Amigo",amigos.get(i).toString());
+        for (int i = 0; i < Amigos.size(); i++) {
+            Log.wtf("Amigo", Amigos.get(i).toString());
         }
+        amigosAdapter = new AmigosAdapter(Amigos, this);
     }
 
     @Override
@@ -46,9 +40,16 @@ public class  RecyclerFragment extends Fragment  {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v= inflater.inflate(R.layout.fragment_recycler, container, false);
-        recyclerView = v.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+ //               Toast.makeText(getActivity(), "BOTON 1 PRESIONADO", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        recyclerView = v.findViewById(R.id.recyclerView);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
 
@@ -66,5 +67,17 @@ public class  RecyclerFragment extends Fragment  {
         fragment.setArguments(args);
         return fragment;
     }
+
+    public void onClick(View v) {
+        int pos = recyclerView.getChildLayoutPosition(v);
+        Toast.makeText(getContext(), Amigos.get(pos).toString(), Toast.LENGTH_SHORT).show();
+        InformacionFragment informacionFragment = InformacionFragment.newInstance(Amigos.get(pos));
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.contenedor, informacionFragment ); // give your fragment container id in first parameter
+        transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+        transaction.commit();
+    }
+
 
 }
