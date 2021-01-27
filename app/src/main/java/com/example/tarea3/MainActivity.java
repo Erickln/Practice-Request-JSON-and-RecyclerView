@@ -58,14 +58,13 @@ public class MainActivity extends AppCompatActivity implements  Handler.Callback
 
     public void cargar(View v){
         Request request = new Request("https://raw.githubusercontent.com/AbigailGV/Pruebas/main/amigos.json", handler);
-        recyclerFragment = RecyclerFragment.newInstance(Amigos,adapter);
+        request.start();
+        recyclerFragment = RecyclerFragment.newInstance(Amigos);
    //     cambiarFragmento(recyclerFragment);
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(R.id.contenedor, recyclerFragment, TAG_FRAGMENTO);
+        transaction.add(R.id.contenedor, recyclerFragment);
         transaction.commit();
-
-        request.start();
     }
 
     public void cambiarFragmento(Fragment nuevo){

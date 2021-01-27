@@ -19,7 +19,6 @@ public class  RecyclerFragment extends Fragment implements View.OnClickListener 
     private RecyclerView recyclerView;
     private ArrayList<Amigo> Amigos;
     private static final String ARG_PARAM1 = "array";
-    private static final String ARG_PARAM2 = "adapter";
     private AmigosAdapter amigosAdapter;
 
     @Override
@@ -27,7 +26,6 @@ public class  RecyclerFragment extends Fragment implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             Amigos = (ArrayList<Amigo>) getArguments().getSerializable(ARG_PARAM1);
-            amigosAdapter = (AmigosAdapter) getArguments().getSerializable(ARG_PARAM2);
         }
         for (int i = 0; i < Amigos.size(); i++) {
             Log.wtf("Amigo", Amigos.get(i).toString());
@@ -58,12 +56,11 @@ public class  RecyclerFragment extends Fragment implements View.OnClickListener 
         return v;
     }
 
-    public static RecyclerFragment newInstance(ArrayList<Amigo> datos,AmigosAdapter amigosAdapter) { //ArrayList<Amigo>
+    public static RecyclerFragment newInstance(ArrayList<Amigo> datos) { //ArrayList<Amigo>
 
         RecyclerFragment fragment = new RecyclerFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_PARAM1,datos);
-        args.putSerializable(ARG_PARAM2,amigosAdapter);
         fragment.setArguments(args);
         return fragment;
     }
